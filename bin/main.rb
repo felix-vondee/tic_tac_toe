@@ -1,3 +1,7 @@
 #!/usr/bin/env ruby
 
-puts 'Hello World'
+class TicTacToe
+    def initialize
+        
+    end
+end
