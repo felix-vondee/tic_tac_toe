@@ -28,7 +28,7 @@ class TicTacToe
   end
 
   def display_board
-    puts "it's #{@current_player}'s turn!}"
+    puts "it's #{@current_player}'s turn!"
     puts " #{@board[0]} | #{@board[1]} | #{@board[2]}"
     puts " #{@board[3]} | #{@board[4]} | #{@board[5]}"
     puts " #{@board[6]} | #{@board[7]} | #{@board[8]}"
