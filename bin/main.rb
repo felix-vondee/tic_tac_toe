@@ -2,7 +2,7 @@
 
 class TicTacToe
     def initialize
-      @board = Array.new(9,"")
+      @board = Array.new(9, " ")
       # self.get_names
     end
 
@@ -22,12 +22,13 @@ class TicTacToe
     end
 
     def position_taken?(position)
-     
      @board[position] == "X" || @board[position] == "O"
-     
-    
-
     end
+
+    def valid_move?(position)
+     !position_taken?(position) && @board[position] == " "
+    end
+
 end
 
 TicTacToe.new
