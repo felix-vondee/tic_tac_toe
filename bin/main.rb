@@ -51,10 +51,8 @@ class TicTacToe
 
   def choose_position
     puts "#{@current_player} Choose position to add your symbol to : 1-9"
-    choice = gets.chomp
-    choose_position if choice.empty? # restart the method if input is empty
-    choice = choice.to_i - 1
-    if valid_move?(choice)
+    choice = gets.chomp.to_i - 1
+    if choice.positive? && valid_move?(choice) # restart the method if input is invalid
       make_move(choice)
     else
       puts 'Invalid move. Try again!'
