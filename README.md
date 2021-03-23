@@ -12,7 +12,7 @@ No prerequisites
 To get a local copy up and running:
 
 1) Clone the repo or download the Zip folder
-2) Install ruby and run "ruby bin/main.rb" in your terminal
+2) Install ruby and run "bin/main.rb" in your terminal
 ## Authors
 
 
