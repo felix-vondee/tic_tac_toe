@@ -1,6 +1,10 @@
 #!/usr/bin/env ruby
 
 class TicTacToe
+  WINNING_COMBINATIONS = [[0, 1, 2], [3, 4, 5], [6, 7, 8],
+                          [0, 3, 6], [1, 4, 7], [2, 5, 8],
+                          [0, 4, 8], [2, 4, 6]].freeze
+
   def initialize
     @board = Array.new(9, ' ')
     assign_players
@@ -11,19 +15,15 @@ class TicTacToe
   def game_loop
     loop do
       display_board
-      if turn_count >= 9
+      if determine_winner
+        puts "#{determine_winner} is the Winner!"
+      elsif turn_count >= 9
         draw
       else
         choose_position
         set_current_player
       end
     end
-  end
-
-  def draw
-    puts 'DRAW!'
-    display_board
-    exit
   end
 
   def display_board
@@ -40,7 +40,7 @@ class TicTacToe
 
   def choose_position
     puts "#{@current_player}, choose position to add your symbol to : 1-9"
-    choice = gets.chomp.to_i-1
+    choice = gets.chomp.to_i - 1
     if choice >= 0 && valid_move?(choice)
       make_move(choice)
     else
@@ -51,8 +51,25 @@ class TicTacToe
 
   def turn_count
     count = 0
-    @board.each {|e| count += 1 if e =="X" || e == "O"}
+    @board.each { |e| count += 1 if %w[X O].include?(e) }
     count
+  end
+
+  def determine_winner
+    if @current_player == @player_a
+      x = []
+      @board.each_with_index { |el, index| x << index if el == 'X' }
+      WINNING_COMBINATIONS.each do |i|
+        return @current_player if i == x
+      end
+    elsif @current_player == @player_b
+      o = []
+      @board.each_with_index { |el, index| o << index if el == 'O' }
+      WINNING_COMBINATIONS.each do |i|
+        return @current_player if i == o
+      end
+    end
+    nil
   end
 
   def draw
@@ -87,7 +104,7 @@ class TicTacToe
   end
 
   def valid_move?(int)
-    !position_taken?(int) && int < @board.length 
+    !position_taken?(int) && int < @board.length
   end
 end
 
