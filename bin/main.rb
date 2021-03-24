@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+# rubocop: disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+
 class TicTacToe
   WINNING_COMBINATIONS = [[0, 1, 2], [3, 4, 5], [6, 7, 8],
                           [0, 3, 6], [1, 4, 7], [2, 5, 8],
@@ -13,12 +15,12 @@ class TicTacToe
 
   def game_loop
     loop do
-        set_current_player
-        display_turn
-        display_board
-        choose_position
-        game_over(nil) if turn_count >= 9
-      end
+      set_current_player
+      display_turn
+      display_board
+      choose_position
+      game_over(nil) if turn_count >= 9
+    end
   end
 
   def game_over(winner)
@@ -45,9 +47,7 @@ class TicTacToe
   def make_move(position)
     @board[position] = 'X' if @current_player == @player_a
     @board[position] = 'O' if @current_player == @player_b
-    if determine_winner
-      game_over(determine_winner)
-    end
+    game_over(determine_winner) if determine_winner
   end
 
   def choose_position
@@ -120,3 +120,5 @@ class TicTacToe
 end
 
 TicTacToe.new
+
+# rubocop: enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
