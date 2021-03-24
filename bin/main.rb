@@ -24,20 +24,6 @@ class TicTacToe
     end
   end
 
-  def winner
-    @turns == 3
-  end
-
-  def draw
-    puts 'Game Over!'
-    puts 'DRAW!'
-  end
-
-  def win
-    puts 'Game Over!'
-    puts "WIN! #{@current_player} won the game!"
-  end
-
   def display_board
     puts " #{@board[0]} | #{@board[1]} | #{@board[2]}"
     puts " #{@board[3]} | #{@board[4]} | #{@board[5]}"
