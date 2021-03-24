@@ -50,6 +50,12 @@ class TicTacToe
     end
   end
 
+  def turn_count
+    count = 0
+    @board.each {|e| count += 1 if e =="X" || e == "O"}
+    count
+  end
+
   def set_current_player
     @current_player = if @current_player == @player_a
                         @player_b
