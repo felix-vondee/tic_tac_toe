@@ -2,7 +2,6 @@
 
 class TicTacToe
   def initialize
-    @turns = 0
     @board = Array.new(9, ' ')
     assign_players
     set_current_player
@@ -11,19 +10,19 @@ class TicTacToe
 
   def game_loop
     loop do
-      if @turns < 9
-        display_board
+      display_board
+      if turn_count >= 9
+        draw
+      else
         choose_position
         set_current_player
-        @turns += 1
-      else
-        draw
       end
     end
   end
 
   def draw
     puts 'DRAW!'
+    display_board
     exit
   end
 
@@ -54,6 +53,11 @@ class TicTacToe
     count = 0
     @board.each {|e| count += 1 if e =="X" || e == "O"}
     count
+  end
+
+  def draw
+    puts 'DRAW'
+    exit
   end
 
   def set_current_player
