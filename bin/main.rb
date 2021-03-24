@@ -3,28 +3,32 @@
 class TicTacToe
   def initialize
     @turns = 0
-    @board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    @board = Array.new(9, ' ')
     assign_players
     set_current_player
-    display_board
     game_loop
   end
 
   def game_loop
-    game_on = true
-    while game_on
-      puts "it's #{@current_player}'s turn!"
-      choose_position
-      set_current_player
-      @turns += 1
-      if winner
+    loop do
+      if @turns < 9
+        display_board
+        choose_position
+        set_current_player
+        @turns += 1
+      else
         draw
-        game_on = false
       end
     end
   end
 
+  def draw
+    puts 'DRAW!'
+    exit
+  end
+
   def display_board
+    puts "it's #{@current_player}'s turn!"
     puts " #{@board[0]} | #{@board[1]} | #{@board[2]}"
     puts " #{@board[3]} | #{@board[4]} | #{@board[5]}"
     puts " #{@board[6]} | #{@board[7]} | #{@board[8]}"
@@ -36,9 +40,9 @@ class TicTacToe
   end
 
   def choose_position
-    puts "#{@current_player} Choose position to add your symbol to : 1-9"
-    choice = gets.chomp.to_i - 1
-    if choice.positive? && valid_move?(choice) # restart the method if input is invalid
+    puts "#{@current_player}, choose position to add your symbol to : 1-9"
+    choice = gets.chomp.to_i-1
+    if choice >= 0 && valid_move?(choice)
       make_move(choice)
     else
       puts 'Invalid move. Try again!'
@@ -62,7 +66,7 @@ class TicTacToe
   end
 
   def input_names(player)
-    puts "Enter name for player #{player} "
+    puts "Enter your name for player #{player} "
     input = gets.chomp
     input_names(player) if input.empty? # restart the method if input is empty
     input
@@ -73,8 +77,7 @@ class TicTacToe
   end
 
   def valid_move?(int)
-    !position_taken?(int) && int < @board.length
-    # !position_taken?(int) && @board[int] == ' '
+    !position_taken?(int) && int < @board.length 
   end
 end
 
