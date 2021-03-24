@@ -4,6 +4,7 @@
 
 require_relative '../lib/board.rb'
 require_relative '../lib/player.rb'
+require_relative '../lib/game.rb'
 
 class TicTacToe
   WINNING_COMBINATIONS = [[0, 1, 2], [3, 4, 5], [6, 7, 8],
@@ -12,82 +13,22 @@ class TicTacToe
 
   def initialize
     @board = Board.new
-    assign_players
-    game_loop
+    player_a = Player.new(input_names('X'))
+    player_b = Player.new(input_names('O'))
+    @game = Game.new(player_a, player_b)
+    #@game.assign_players
+    @game.game_loop
   end
 
-  def game_loop
-    loop do
-      set_current_player
-      @board.display_turn(@current_player.name)
-      @board.display
-      choose_position
-      game_over(nil) if turn_count >= 9
-    end
-  end
-
-  def game_over(winner)
-    puts 'GAME OVER!'
-    @board.display
-    if winner
-      puts "'#{winner.name}' is the Winner!"
-    else
-      draw
-    end
-    exit
-  end
-
-  def choose_position
+  def input_position
     puts "#{@current_player.name}, choose position to add your symbol to : 1-9"
     choice = gets.chomp.to_i - 1
     if choice >= 0 && valid_move?(choice)
       make_move(choice)
     else
       puts 'Invalid move. Try again!'
-      choose_position
+      input_position
     end
-  end
-
-  def turn_count
-    count = 0
-    @board.get_data.each { |e| count += 1 if %w[X O].include?(e) }
-    count
-  end
-
-  def determine_winner
-    if @current_player == @player_a
-      x = []
-      @board.get_data.each_with_index { |el, index| x << index if el == 'X' }
-      WINNING_COMBINATIONS.each do |i|
-        return @current_player if i == x
-      end
-    elsif @current_player == @player_b
-      o = []
-      @board.get_data.each_with_index { |el, index| o << index if el == 'O' }
-      WINNING_COMBINATIONS.each do |i|
-        return @current_player if i == o
-      end
-    end
-    nil
-  end
-
-  def draw
-    puts 'It\'s a DRAW'
-  end
-
-  def set_current_player
-    @current_player = if @current_player == @player_a
-                        @player_b
-                      elsif @current_player == @player_b
-                        @player_a
-                      else
-                        [@player_a, @player_b].sample
-                      end
-  end
-
-  def assign_players
-    @player_a = Player.new(input_names('X'))
-    @player_b = Player.new(input_names('Y'))
   end
 
   def input_names(player)
@@ -95,16 +36,6 @@ class TicTacToe
     input = gets.chomp
     input_names(player) if input.empty? # restart the method if input is empty
     input
-  end
-
-  def make_move(position)
-    @board.add('X', position) if @current_player == @player_a
-    @board.add('O', position) if @current_player == @player_b
-    game_over(determine_winner) if determine_winner
-  end
-
-  def valid_move?(int)
-    !@board.position_taken?(int) && int < @board.size
   end
 
 end

@@ -9,10 +9,6 @@ class Board
         puts " #{@board[6]} | #{@board[7]} | #{@board[8]}"
     end
 
-    def display_turn(player)
-        puts "it's #{@current_player}'s turn!"
-    end
-
     def position_taken?(position)
         @board[position] == 'X' || @board[position] == 'O'
     end
