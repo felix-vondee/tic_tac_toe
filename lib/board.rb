@@ -4,9 +4,9 @@ class Board
   end
 
   def display
-    puts " #{@board[0]} | #{@board[1]} | #{@board[2]}"
-    puts " #{@board[3]} | #{@board[4]} | #{@board[5]}"
-    puts " #{@board[6]} | #{@board[7]} | #{@board[8]}"
+    " #{@board[0]} | #{@board[1]} | #{@board[2]}\n"\
+    " #{@board[3]} | #{@board[4]} | #{@board[5]}\n"\
+    " #{@board[6]} | #{@board[7]} | #{@board[8]}"\
   end
 
   def position_taken?(position)

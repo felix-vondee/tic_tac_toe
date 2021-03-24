@@ -15,10 +15,18 @@ class TicTacToe
   def game_loop
     loop do
       @game.set_current_player
-      @game.display_turn
-      @game.display_board
+      puts @game.display_turn
+      puts @game.display_board
       input_position
-      @game.game_over(nil) if @game.turn_count >= 9 && !@game.determine_winner
+      if @game.determine_winner
+        puts @game.game_over(@game.determine_winner)
+      elsif @game.turn_count >= 9 && !@game.determine_winner
+        puts @game.game_over(nil)
+      end
+      if @game.determine_winner || @game.turn_count >= 9
+        puts @game.display_board
+        exit
+      end
     end
   end
 

@@ -21,7 +21,7 @@ class Game
   end
 
   def display_turn
-    puts "it's #{@current_player.name}'s turn!"
+    "it's #{@current_player.name}'s turn!"
   end
 
   def turn_count
@@ -52,19 +52,12 @@ class Game
     nil
   end
 
-  def draw
-    puts 'It\'s a DRAW'
-  end
-
   def game_over(winner)
-    puts 'GAME OVER!'
-    @board.display
     if winner
-      puts "'#{winner.name}' is the Winner!"
+      "'#{winner.name}' is the Winner!"
     else
-      draw
+      'It\'s a DRAW'
     end
-    exit
   end
 
   def assign_players
@@ -75,7 +68,6 @@ class Game
   def make_move(position)
     @board.add('X', position) if @current_player == @player_a
     @board.add('O', position) if @current_player == @player_b
-    game_over(determine_winner) if determine_winner
   end
 
   def valid_move?(int)
