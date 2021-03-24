@@ -1,4 +1,4 @@
-require_relative '../lib/board.rb'
+require_relative '../lib/board'
 
 # rubocop: disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
 
@@ -6,8 +6,8 @@ class Game
   attr_reader :current_player
 
   WINNING_COMBINATIONS = [[0, 1, 2], [3, 4, 5], [6, 7, 8],
-  [0, 3, 6], [1, 4, 7], [2, 5, 8],
-  [0, 4, 8], [2, 4, 6]].freeze
+                          [0, 3, 6], [1, 4, 7], [2, 5, 8],
+                          [0, 4, 8], [2, 4, 6]].freeze
 
   def initialize(player_a, player_b)
     @board = Board.new
@@ -26,7 +26,7 @@ class Game
 
   def turn_count
     count = 0
-    @board.get_data.each { |e| count += 1 if %w[X O].include?(e) }
+    @board.receive_data.each { |e| count += 1 if %w[X O].include?(e) }
     count
   end
 
@@ -43,13 +43,13 @@ class Game
   def determine_winner
     if @current_player == @player_a
       x = []
-      @board.get_data.each_with_index { |el, index| x << index if el == 'X' }
+      @board.receive_data.each_with_index { |el, index| x << index if el == 'X' }
       WINNING_COMBINATIONS.each do |i|
         return @current_player if i == x
       end
     elsif @current_player == @player_b
       o = []
-      @board.get_data.each_with_index { |el, index| o << index if el == 'O' }
+      @board.receive_data.each_with_index { |el, index| o << index if el == 'O' }
       WINNING_COMBINATIONS.each do |i|
         return @current_player if i == o
       end
@@ -90,7 +90,6 @@ class Game
   def display_board
     @board.display
   end
-
 end
 
 # rubocop: enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity

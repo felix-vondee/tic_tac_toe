@@ -1,15 +1,14 @@
 #!/usr/bin/env ruby
 
-require_relative '../lib/player.rb'
-require_relative '../lib/game.rb'
+require_relative '../lib/player'
+require_relative '../lib/game'
 
 class TicTacToe
-  
   def initialize
     player_a = Player.new(input_names('X'))
     player_b = Player.new(input_names('O'))
     @game = Game.new(player_a, player_b)
-    #@game.assign_players
+    # @game.assign_players
     game_loop
   end
 
@@ -40,7 +39,6 @@ class TicTacToe
     input_names(player) if input.empty? # restart the method if input is empty
     input
   end
-
 end
 
 TicTacToe.new
