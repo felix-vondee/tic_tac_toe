@@ -1,6 +1,6 @@
 require_relative '../lib/board'
 
-# rubocop: disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+# rubocop: disable Style/MultipleComparison
 
 class Game
   attr_reader :current_player
@@ -41,17 +41,15 @@ class Game
   end
 
   def determine_winner
-      actual_array = []
-      WINNING_COMBINATIONS.flatten.each do |i|
-        actual_array << @board.receive_data[i]
-      end
-      actual_array = actual_array.each_slice(3).to_a
-      actual_array.each do |el|
-        if el == ['X', 'X', 'X'] || el == ['O', 'O', 'O']
-         return @current_player
-        end
-      end
-      nil
+    actual_array = []
+    WINNING_COMBINATIONS.flatten.each do |i|
+      actual_array << @board.receive_data[i]
+    end
+    actual_array = actual_array.each_slice(3).to_a
+    actual_array.each do |el|
+      return @current_player if el == %w[X X X] || el == %w[O O O]
+    end
+    nil
   end
 
   def draw
@@ -89,4 +87,4 @@ class Game
   end
 end
 
-# rubocop: enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+# rubocop: enable Style/MultipleComparison
