@@ -1,5 +1,7 @@
 
 class Game
+  attr_reader :current_player
+
   def initialize(player_a, player_b)
     @player_a = player_a
     @player_b = player_b
@@ -10,18 +12,8 @@ class Game
     game_loop
   end
 
-  def game_loop
-    loop do
-      set_current_player
-      display_turn(@current_player.name)
-      @board.display
-      input_position
-      game_over(nil) if turn_count >= 9
-    end
-  end
-
-  def display_turn(player)
-    puts "it's #{@current_player}'s turn!"
+  def display_turn
+    puts "it's #{@current_player.name}'s turn!"
   end
 
   def turn_count
@@ -74,7 +66,7 @@ class Game
 
   def assign_players
     @player_a = Player.new(input_names('X'))
-    @player_b = Player.new(input_names('Y'))
+    @player_b = Player.new(input_names('O'))
   end
 
   def make_move(position)

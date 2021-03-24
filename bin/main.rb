@@ -17,14 +17,24 @@ class TicTacToe
     player_b = Player.new(input_names('O'))
     @game = Game.new(player_a, player_b)
     #@game.assign_players
-    @game.game_loop
+    game_loop
+  end
+
+  def game_loop
+    loop do
+      @game.set_current_player
+      @game.display_turn
+      @board.display
+      input_position
+      game_over(nil) if turn_count >= 9
+    end
   end
 
   def input_position
-    puts "#{@current_player.name}, choose position to add your symbol to : 1-9"
+    puts "#{@game.current_player.name}, choose position to add your symbol to : 1-9"
     choice = gets.chomp.to_i - 1
-    if choice >= 0 && valid_move?(choice)
-      make_move(choice)
+    if choice >= 0 && @game.valid_move?(choice)
+      @game.make_move(choice)
     else
       puts 'Invalid move. Try again!'
       input_position
