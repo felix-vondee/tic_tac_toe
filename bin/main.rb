@@ -2,6 +2,7 @@
 
 # rubocop: disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
 
+require_relative '../lib/board.rb'
 require_relative '../lib/player.rb'
 
 class TicTacToe
@@ -10,7 +11,7 @@ class TicTacToe
                           [0, 4, 8], [2, 4, 6]].freeze
 
   def initialize
-    @board = Array.new(9, ' ')
+    @board = Board.new
     assign_players
     game_loop
   end
@@ -18,8 +19,8 @@ class TicTacToe
   def game_loop
     loop do
       set_current_player
-      display_turn
-      display_board
+      @board.display_turn(@current_player.name)
+      @board.display
       choose_position
       game_over(nil) if turn_count >= 9
     end
@@ -27,29 +28,13 @@ class TicTacToe
 
   def game_over(winner)
     puts 'GAME OVER!'
-    display_board
+    @board.display
     if winner
       puts "'#{winner.name}' is the Winner!"
     else
       draw
     end
     exit
-  end
-
-  def display_turn
-    puts "it's #{@current_player.name}'s turn!"
-  end
-
-  def display_board
-    puts " #{@board[0]} | #{@board[1]} | #{@board[2]}"
-    puts " #{@board[3]} | #{@board[4]} | #{@board[5]}"
-    puts " #{@board[6]} | #{@board[7]} | #{@board[8]}"
-  end
-
-  def make_move(position)
-    @board[position] = 'X' if @current_player == @player_a
-    @board[position] = 'O' if @current_player == @player_b
-    game_over(determine_winner) if determine_winner
   end
 
   def choose_position
@@ -65,20 +50,20 @@ class TicTacToe
 
   def turn_count
     count = 0
-    @board.each { |e| count += 1 if %w[X O].include?(e) }
+    @board.get_data.each { |e| count += 1 if %w[X O].include?(e) }
     count
   end
 
   def determine_winner
     if @current_player == @player_a
       x = []
-      @board.each_with_index { |el, index| x << index if el == 'X' }
+      @board.get_data.each_with_index { |el, index| x << index if el == 'X' }
       WINNING_COMBINATIONS.each do |i|
         return @current_player if i == x
       end
     elsif @current_player == @player_b
       o = []
-      @board.each_with_index { |el, index| o << index if el == 'O' }
+      @board.get_data.each_with_index { |el, index| o << index if el == 'O' }
       WINNING_COMBINATIONS.each do |i|
         return @current_player if i == o
       end
@@ -112,13 +97,16 @@ class TicTacToe
     input
   end
 
-  def position_taken?(position)
-    @board[position] == 'X' || @board[position] == 'O'
+  def make_move(position)
+    @board.add('X', position) if @current_player == @player_a
+    @board.add('O', position) if @current_player == @player_b
+    game_over(determine_winner) if determine_winner
   end
 
   def valid_move?(int)
-    !position_taken?(int) && int < @board.length
+    !@board.position_taken?(int) && int < @board.size
   end
+
 end
 
 TicTacToe.new

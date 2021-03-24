@@ -6,6 +6,3 @@ class Player
     end
 
 end
-
-player_a = Player.new('Felix')
-player_a
