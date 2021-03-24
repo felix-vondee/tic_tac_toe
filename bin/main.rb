@@ -18,7 +18,7 @@ class TicTacToe
       @game.display_turn
       @game.display_board
       input_position
-      @game.game_over(nil) if @game.turn_count >= 9
+      @game.game_over(nil) if @game.turn_count >= 9 && !@game.determine_winner
     end
   end
 

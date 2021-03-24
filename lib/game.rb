@@ -41,20 +41,17 @@ class Game
   end
 
   def determine_winner
-    if @current_player == @player_a
-      x = []
-      @board.receive_data.each_with_index { |el, index| x << index if el == 'X' }
-      WINNING_COMBINATIONS.each do |i|
-        return @current_player if i == x
+      actual_array = []
+      WINNING_COMBINATIONS.flatten.each do |i|
+        actual_array << @board.receive_data[i]
       end
-    elsif @current_player == @player_b
-      o = []
-      @board.receive_data.each_with_index { |el, index| o << index if el == 'O' }
-      WINNING_COMBINATIONS.each do |i|
-        return @current_player if i == o
+      actual_array = actual_array.each_slice(3).to_a
+      actual_array.each do |el|
+        if el == ['X', 'X', 'X'] || el == ['O', 'O', 'O']
+         return @current_player
+        end
       end
-    end
-    nil
+      nil
   end
 
   def draw
