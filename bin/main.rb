@@ -2,6 +2,8 @@
 
 # rubocop: disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
 
+require_relative '../lib/player.rb'
+
 class TicTacToe
   WINNING_COMBINATIONS = [[0, 1, 2], [3, 4, 5], [6, 7, 8],
                           [0, 3, 6], [1, 4, 7], [2, 5, 8],
@@ -27,7 +29,7 @@ class TicTacToe
     puts 'GAME OVER!'
     display_board
     if winner
-      puts "'#{winner}' is the Winner!"
+      puts "'#{winner.name}' is the Winner!"
     else
       draw
     end
@@ -35,7 +37,7 @@ class TicTacToe
   end
 
   def display_turn
-    puts "it's #{@current_player}'s turn!"
+    puts "it's #{@current_player.name}'s turn!"
   end
 
   def display_board
@@ -51,7 +53,7 @@ class TicTacToe
   end
 
   def choose_position
-    puts "#{@current_player}, choose position to add your symbol to : 1-9"
+    puts "#{@current_player.name}, choose position to add your symbol to : 1-9"
     choice = gets.chomp.to_i - 1
     if choice >= 0 && valid_move?(choice)
       make_move(choice)
@@ -99,8 +101,8 @@ class TicTacToe
   end
 
   def assign_players
-    @player_a = input_names('X')
-    @player_b = input_names('O')
+    @player_a = Player.new(input_names('X'))
+    @player_b = Player.new(input_names('Y'))
   end
 
   def input_names(player)
