@@ -8,26 +8,35 @@ class TicTacToe
   def initialize
     @board = Array.new(9, ' ')
     assign_players
-    set_current_player
     game_loop
   end
 
   def game_loop
     loop do
-      display_board
-      if determine_winner
-        puts "#{determine_winner} is the Winner!"
-      elsif turn_count >= 9
-        draw
-      else
-        choose_position
         set_current_player
+        display_turn
+        display_board
+        choose_position
+        game_over(nil) if turn_count >= 9
       end
+  end
+
+  def game_over(winner)
+    puts 'GAME OVER!'
+    display_board
+    if winner
+      puts "'#{winner}' is the Winner!"
+    else
+      draw
     end
+    exit
+  end
+
+  def display_turn
+    puts "it's #{@current_player}'s turn!"
   end
 
   def display_board
-    puts "it's #{@current_player}'s turn!"
     puts " #{@board[0]} | #{@board[1]} | #{@board[2]}"
     puts " #{@board[3]} | #{@board[4]} | #{@board[5]}"
     puts " #{@board[6]} | #{@board[7]} | #{@board[8]}"
@@ -36,6 +45,9 @@ class TicTacToe
   def make_move(position)
     @board[position] = 'X' if @current_player == @player_a
     @board[position] = 'O' if @current_player == @player_b
+    if determine_winner
+      game_over(determine_winner)
+    end
   end
 
   def choose_position
@@ -73,8 +85,7 @@ class TicTacToe
   end
 
   def draw
-    puts 'DRAW'
-    exit
+    puts 'It\'s a DRAW'
   end
 
   def set_current_player
