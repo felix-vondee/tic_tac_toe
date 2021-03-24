@@ -1,18 +1,11 @@
 #!/usr/bin/env ruby
 
-# rubocop: disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
-
-require_relative '../lib/board.rb'
 require_relative '../lib/player.rb'
 require_relative '../lib/game.rb'
 
 class TicTacToe
-  WINNING_COMBINATIONS = [[0, 1, 2], [3, 4, 5], [6, 7, 8],
-                          [0, 3, 6], [1, 4, 7], [2, 5, 8],
-                          [0, 4, 8], [2, 4, 6]].freeze
-
+  
   def initialize
-    @board = Board.new
     player_a = Player.new(input_names('X'))
     player_b = Player.new(input_names('O'))
     @game = Game.new(player_a, player_b)
@@ -24,9 +17,9 @@ class TicTacToe
     loop do
       @game.set_current_player
       @game.display_turn
-      @board.display
+      @game.display_board
       input_position
-      game_over(nil) if turn_count >= 9
+      @game.game_over(nil) if @game.turn_count >= 9
     end
   end
 
@@ -51,5 +44,3 @@ class TicTacToe
 end
 
 TicTacToe.new
-
-# rubocop: enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity

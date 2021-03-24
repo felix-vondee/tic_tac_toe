@@ -1,8 +1,16 @@
+require_relative '../lib/board.rb'
+
+# rubocop: disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
 
 class Game
   attr_reader :current_player
 
+  WINNING_COMBINATIONS = [[0, 1, 2], [3, 4, 5], [6, 7, 8],
+  [0, 3, 6], [1, 4, 7], [2, 5, 8],
+  [0, 4, 8], [2, 4, 6]].freeze
+
   def initialize(player_a, player_b)
+    @board = Board.new
     @player_a = player_a
     @player_b = player_b
   end
@@ -79,4 +87,10 @@ class Game
     !@board.position_taken?(int) && int < @board.size
   end
 
+  def display_board
+    @board.display
+  end
+
 end
+
+# rubocop: enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
