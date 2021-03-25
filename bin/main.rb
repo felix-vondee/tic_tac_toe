@@ -8,7 +8,6 @@ class TicTacToe
     player_a = Player.new(input_names('X'))
     player_b = Player.new(input_names('O'))
     @game = Game.new(player_a, player_b)
-    # @game.assign_players
     game_loop
   end
 
@@ -44,7 +43,7 @@ class TicTacToe
   def input_names(player)
     puts "Enter your name for player #{player} "
     input = gets.chomp
-    input_names(player) if input.empty? # restart the method if input is empty
+    input_names(player) if input.empty?
     input
   end
 end
