@@ -1,18 +1,30 @@
 # Tic Tac Toe
-The main goal of this project is to learn how to use Object Orentiated Ruby. We created a Tic Tac Toe game using OOP.
+The main goal of this project was to learn core Object Orentiated Programming concepts. We created a Tic Tac Toe game . In tic tac toe, each user is represented by one of two symbols "X" or "O". The first user to get three of these symbols in a row, column or diagonal wins the game.
 
 ## Built With
 
 - Ruby
+- Rubocop
 
 ## Getting Started
 
-No prerequisites
+### Prerequisites
 
-To get a local copy up and running:
+- A version of Ruby installed on your computer
+- A basic knowledge of navigation inside a computer terminal. [Learn more about computer terminals here](https://medium.com/swlh/bash-for-beginners-becoming-a-terminal-ninja-7024d8c4968f)
 
-1) Clone the repo or download the Zip folder
-2) Install ruby and run "bin/main.rb" in your terminal
+### To get a local copy up and running:
+
+1) Clone this repository or download the Zip folder.[Learn to clone a github repository here](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository)
+
+2) Open your terminal, navigate to the location of the folders you have clonned and run "bin/main.rb".
+
+### Game Instructions:
+
+- Each user should enter their names after the game starts up
+- The game will inform a player if it's their turn to make a move
+- Available spaces on the board are represented by numbers from 1 to 9
+
 ## Authors
 
 
@@ -37,4 +49,3 @@ Contributions, issues, and feature requests are welcome!
 ## Show your support
 
 Give a ⭐️ if you like this project and how we manage to build it!
-
